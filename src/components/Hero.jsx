@@ -1,4 +1,6 @@
-import { useId } from 'react'
+'use client'
+
+import { useId, Fragment } from 'react'
 import Image from 'next/image'
 import clsx from 'clsx'
 
@@ -16,8 +18,15 @@ import logoHuffpost from '@/images/logos/huffpost.svg'
 import logoTechcrunch from '@/images/logos/techcrunch.svg'
 import logoWired from '@/images/logos/wired.svg'
 
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+import { toast } from 'react-toastify'
+
 function BackgroundIllustration(props) {
   let id = useId()
+  const notify = () => toast('Wow so easy!')
 
   return (
     <div {...props}>
@@ -99,6 +108,70 @@ function PlayIcon(props) {
 }
 
 export function Hero() {
+  const schema = yup
+    .object({
+      email: yup.string().required(),
+    })
+    .required()
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
+
+  const encode = (data) => {
+    return Object.keys(data)
+      .map(
+        (key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+      )
+      .join('&')
+  }
+
+  const onSubmit = (data) => {
+    if (!errors.email && data?.email.includes('@') && !data?.address) {
+      actions.register()
+    } else {
+      toast.error('Error enter a valid email please', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      })
+    }
+  }
+
+  const actions = {
+    register: () => {
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'preregister',
+          email: watch('email'),
+          address: '',
+        }).toString(),
+      })
+        .then(() =>
+          toast.success('Thanks! Talk to you soon :)', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+          })
+        )
+        .catch((error) => alert(error))
+    },
+  }
   return (
     <div className="sm:py-22 overflow-hidden py-20 lg:pb-32 xl:pb-36">
       <Container>
@@ -112,13 +185,10 @@ export function Hero() {
               campus life by promoting a smarter, more sustainable, and more economical student economy. But it's more than transactions - it's
               about nurturing a community`}
             </p>
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
-              <Button
-                href="https://www.loom.com/share/81dcb636cb834186b51330d440392294"
-                variant="outline"
-              >
-                <span className="ml-2.5">Get notified when available</span>
-              </Button>
+            <div
+              className="mb-12 mt-12 flex  flex-wrap gap-x-6 gap-y-4"
+              style={{ justifyContent: 'center' }}
+            >
               <Button
                 href="https://www.loom.com/share/81dcb636cb834186b51330d440392294"
                 variant="outline"
@@ -130,8 +200,58 @@ export function Hero() {
                 href="https://prototype.campusplaza.app"
                 variant="outline"
               >
-                <span className="ml-2.5">Go to prototype</span>
+                <span>Go to prototype</span>
               </Button>
+            </div>
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  padding: '8px',
+                  fontSize: 30,
+                }}
+              >
+                Register for beta access
+              </div>
+              <form
+                className={'gap-spacer-2 width-100 flex ' ? '' : 'flex-column'}
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <input
+                  placeholder="Enter your email"
+                  {...register('email')}
+                  name="email"
+                  style={{
+                    borderRadius: 8,
+                    flex: 1,
+                    height: '51px',
+                    outline: 'none',
+                    padding: '10px',
+                    width: '100%',
+                    marginBottom: 5,
+                  }}
+                />
+                <input
+                  placeholder="Enter your address"
+                  {...register('address')}
+                  name="address"
+                  className="address-field"
+                  hidden={true}
+                />
+                <button
+                  type="submit"
+                  style={{
+                    width: '100%',
+                    height: '53px',
+                    backgroundColor: '#256bfb',
+                    borderRadius: 8,
+                    color: '#ffffff',
+                  }}
+                >
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
           <div className="relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6">
@@ -142,7 +262,7 @@ export function Hero() {
               </PhoneFrame>
             </div>
           </div>
-          <div className="relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6">
+          {/* <div className="relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6">
             <p className="text-center text-sm font-semibold text-gray-900 lg:text-left">
               As featured in
             </p>
@@ -165,7 +285,7 @@ export function Hero() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </Container>
     </div>

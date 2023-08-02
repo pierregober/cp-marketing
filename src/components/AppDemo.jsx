@@ -31,11 +31,9 @@ function LocationIcon() {
 
 export function AppDemo() {
   const [windowWidth, setWindowWidth] = useState(900)
-
   const handleResize = () => {
     setWindowWidth(window?.innerWidth)
   }
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // detect window screen width function

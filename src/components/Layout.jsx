@@ -6,7 +6,7 @@ export function Layout({ children }) {
     <>
       {/* <Header /> */}
       <main className="flex-auto">{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

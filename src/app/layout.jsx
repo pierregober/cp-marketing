@@ -25,6 +25,16 @@ export default function RootLayout({ children }) {
       className={clsx('h-full bg-gray-50 antialiased', inter.variable)}
     >
       <body className="flex h-full flex-col">
+        <form name="preregister" data-netlify="true" hidden>
+          <input aria-label="email" type="" name="email" />
+          <input
+            aria-label="address"
+            className="address-field"
+            type="address"
+            name="address"
+          />
+          <button type="submit">Submit</button>
+        </form>
         <div className="flex min-h-full flex-col">{children}</div>
       </body>
     </html>
