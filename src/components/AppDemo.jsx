@@ -117,17 +117,17 @@ export function AppDemo() {
                     borderRadius: 6,
                     width:
                       windowWidth < 376
-                        ? 60
+                        ? 65
                         : windowWidth < 412
-                        ? 70
+                        ? 75
                         : windowWidth < 447
                         ? 80
                         : 90,
                     height:
                       windowWidth < 376
-                        ? 60
+                        ? 65
                         : windowWidth < 412
-                        ? 70
+                        ? 75
                         : windowWidth < 447
                         ? 80
                         : 90,
