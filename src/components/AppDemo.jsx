@@ -30,16 +30,19 @@ function LocationIcon() {
 }
 
 export function AppDemo() {
-  const [windowWidth, setWindowWidth] = useState(window?.innerWidth ?? 1080)
+  const [windowWidth, setWindowWidth] = useState(900)
 
   const handleResize = () => {
     setWindowWidth(window?.innerWidth)
   }
 
   useEffect(() => {
-    window?.addEventListener('resize', handleResize)
-    return () => {
-      window?.removeEventListener('resize', handleResize)
+    if (typeof window !== 'undefined') {
+      // detect window screen width function
+      window?.addEventListener('resize', handleResize)
+      return () => {
+        window?.removeEventListener('resize', handleResize)
+      }
     }
   }, [])
 
