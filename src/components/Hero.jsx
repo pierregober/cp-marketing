@@ -177,6 +177,13 @@ export function Hero() {
       <Container>
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
           <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
+            <Image
+              height={36}
+              width={300}
+              style={{ marginBottom: 24 }}
+              alt="CampusPlaza logo"
+              src="https://i.imgur.com/5dwSZlz.png"
+            />
             <h1 className="text-4xl font-medium tracking-tight text-gray-900">
               Marketplace for students
             </h1>
