@@ -188,9 +188,8 @@ export function Hero() {
               Marketplace for students
             </h1>
             <p className="mt-6 text-lg text-gray-600">
-              {`Buy, sell, your unwanted items and if you have a extra time sell your services to help other fellow students. We aim to revolutionize your
-              campus life by promoting a smarter, more sustainable, and more economical student economy. But it's more than transactions - it's
-              about nurturing a community`}
+              {`Revolutionizing your campus life by promoting a smarter, more sustainable, and more economical student economy. But it's more than transactions - it's
+              about nurturing a community.`}
             </p>
             <div
               className="mb-12 mt-12 flex  flex-wrap gap-x-6 gap-y-4"
