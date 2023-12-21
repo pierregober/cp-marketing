@@ -196,7 +196,7 @@ export function Hero() {
               style={{ justifyContent: 'center' }}
             >
               <Button
-                href="https://www.loom.com/share/81dcb636cb834186b51330d440392294"
+                // href="https://www.loom.com/share/81dcb636cb834186b51330d440392294"
                 variant="outline"
               >
                 <PlayIcon className="h-6 w-6 flex-none" />
